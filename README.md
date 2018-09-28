@@ -38,6 +38,55 @@ filter(:for_browser){|browser| matches(:browser, browser)}
 filter(:browsers){|| browsers.map {|browser| matches(:browser, browser)}}
 
 Exit.for_browser("Safari", profile)
-Exit
+Exit.results(profile) == profile.exit
+profile.exit.high_exits.low_pageviews.by_pageviews
+Exit.high_exits(profile).low_pageviews == Exit.low_pageviews(profile).high_exits
+filter(:browsers) {|*browsers| browsers.map {|browser| matches(:browser, browser)}}
+Exit.browsers("Firefox", "Safari", profile)
+
+
+eql => '==',
+not_eql => '!=',
+gt => '>',
+gte => '>=',
+lt => '<',
+lte => '<='
+
+matches => '==',
+does_not_match => '!=',
+contains => '=~',
+does_not_contain => '!~',
+substring => '=@',
+not_substring => '!@'
+
+
+segment :high_exits do
+  gte(:exits, 2000)
+end
+
+segment :low_pageviews do
+  lte(:pageviews, 2000)
+end
+
+Exit.high_exits.low_pageviews(profile)
+profile.exit.high_exits.low_pageviews
+
+Legato::Management::Account.all(user)
+Legato::Management::WebProperty.all(user)
+Legato::Management::Profile.all(user)
+Legato::Management::Goal.all(user)
+
+Eixt.results(profile).realtime
+
+query = Exit.realtime
+query.realtime? # => true
+query.tracking_scope # => 'rt'
+
+user = Legato::User.new(access_token)
+user.quota_user = 'some_unique_identifier'
+user.user_ip = ip_address_from_a_web_user_or_something
+
+
+
 ```
 
